@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:id="@+id/activity_login_rv_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:layout_centerHorizontal="true">
+
+        <android.support.design.widget.TextInputLayout
+                android:id="@+id/activity_login_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:theme="@style/Theme.App.TextInput">
+
+            <EditText
+                    android:id="@+id/email"
+                    android:layout_width="256dp"
+                    android:layout_height="56dp"
+                    android:hint="email"
+                    android:inputType="textEmailAddress"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+                android:id="@+id/activity_login_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_login_email"
+                android:theme="@style/Theme.App.TextInput"
+                app:passwordToggleEnabled="true">
+
+            <EditText
+                    android:id="@+id/password"
+                    android:layout_width="256dp"
+                    android:layout_height="70dp"
+                    android:hint="password"
+                    android:inputType="textPassword"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatButton
+                android:id="@+id/activity_login_btn_login"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="32dp"
+                android:background="@color/colorPrimaryDark"
+                android:layout_below="@id/activity_login_password"
+                android:layout_centerHorizontal="true"
+                android:text="login"/>
+
+    </RelativeLayout>
+
+    <com.google.android.gms.common.SignInButton
+            android:id="@+id/activity_login_btn_google_login"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/activity_login_rv_container">
+
+    </com.google.android.gms.common.SignInButton>
+
+    <Button
+            android:id="@+id/activity_login_btn_sign_out"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/activity_login_btn_google_login"
+            android:layout_centerHorizontal="true"
+            android:text="sign out"/>
+
+
+</RelativeLayout>
