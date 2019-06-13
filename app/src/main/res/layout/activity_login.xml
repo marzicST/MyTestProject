@@ -24,6 +24,7 @@
                     android:layout_width="256dp"
                     android:layout_height="56dp"
                     android:hint="email"
+                    android:text="user1@gmail.com"
                     android:inputType="textEmailAddress"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -40,6 +41,7 @@
                     android:id="@+id/password"
                     android:layout_width="256dp"
                     android:layout_height="70dp"
+                    android:text="123456"
                     android:hint="password"
                     android:inputType="textPassword"/>
 
@@ -60,7 +62,7 @@
     <com.google.android.gms.common.SignInButton
             android:id="@+id/activity_login_btn_google_login"
             android:layout_width="200dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/activity_login_rv_container">
@@ -70,11 +72,20 @@
     <Button
             android:id="@+id/activity_login_btn_sign_out"
             android:layout_width="200dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:layout_below="@+id/activity_login_btn_google_login"
             android:layout_centerHorizontal="true"
             android:text="sign out"/>
 
+
+    <com.facebook.login.widget.LoginButton
+            android:id="@+id/activity_login_facebook_login_button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_below="@id/activity_login_btn_sign_out"/>
 
 </RelativeLayout>
