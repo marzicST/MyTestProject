@@ -1,8 +1,9 @@
 package com.marzicst.android.mytestproject.ui.login
 
+import android.app.Activity
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.marzicst.android.mytestproject.api.response.TokenResponse
-import com.marzicst.android.mytestproject.data.LoginRequest
+import com.marzicst.android.mytestproject.data.response.TokenResponse
+import com.marzicst.android.mytestproject.data.request.LoginRequest
 import io.reactivex.Single
 import retrofit2.Call
 
@@ -14,12 +15,14 @@ interface LoginContract {
     }
 
     interface View {
+        fun showProgress()
+        fun hideProgress()
         fun showEmailError(text: String)
         fun showPasswordError(text: String)
         fun hideKeyboard()
         fun validationSuccessful()
         fun openMainActivity()
-        fun getViewContext(): View
+        fun getViewContext(): Activity
     }
 
     interface Presenter {

@@ -1,6 +1,7 @@
 package com.marzicst.android.mytestproject.ui.login
 
 import android.util.Log
+import android.util.Patterns
 import android.widget.Toast
 import com.facebook.CallbackManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -10,14 +11,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.marzicst.android.mytestproject.R
-import com.marzicst.android.mytestproject.api.response.TokenResponse
-import com.marzicst.android.mytestproject.data.LoginRequest
+import com.marzicst.android.mytestproject.data.request.LoginRequest
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class LoginPresenter : LoginContract.Presenter {
@@ -47,7 +44,7 @@ class LoginPresenter : LoginContract.Presenter {
             .requestIdToken(loginActivity.getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
-        googleSignInClient = GoogleSignIn.getClient(loginActivity, gso)
+        googleSignInClient = GoogleSignIn.getClient(view?.getViewContext()!!, gso)
 
         val signInIntent = googleSignInClient?.signInIntent
         loginActivity.startActivityForResult(signInIntent, 101)
@@ -75,24 +72,33 @@ class LoginPresenter : LoginContract.Presenter {
 
     override fun onButtonLoginClicked(email: String?, password: String?) {
 
-//        view?.hideKeyboard()
-//        if (email.isEmpty()) {
-//            view?.showEmailError("Field can`t be empty")
-//        }
-//        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-//            view?.showEmailError("Incorrect email")
-//        }
-//        if (password.length < 4) {
-//            view?.showPasswordError("short password")
-//
-//        }
-//
-//        else
-            val body = LoginRequest("user1@gmail.com", "123456")
-            val disposable = model?.loginRx(body)
-                ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribeOn(Schedulers.io())
-                ?.subscribe ()
+        view?.hideKeyboard()
+        if (email != null) {
+            if (email.isEmpty()) {
+                view?.showEmailError("Field can`t be empty")
+                return
+            }
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            view?.showEmailError("Incorrect email")
+            return
+        }
+        if (password != null) {
+            if (password.length < 4) {
+                view?.showPasswordError("short password")
+                return
+
+            }
+        }
+        val body = LoginRequest(email, password)
+        view?.showProgress()
+        val disposable = model?.loginRx(body)
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribeOn(Schedulers.io())
+            ?.subscribe({view?.openMainActivity()},{})
+
+
+        view?.hideProgress()
 
         if (disposable != null) {
             compositeDisposable.add(disposable)
@@ -109,13 +115,5 @@ class LoginPresenter : LoginContract.Presenter {
 //                Log.d("LOG", response.isSuccessful.toString())
 //            }
 //        })
-    }
-
-    fun validationSuccessful(){
-        Log.d("LOG", "OKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK")
-    }
-
-    fun validationError(){
-        Log.d("LOG", "Erooooooooooooooooooor")
     }
 }

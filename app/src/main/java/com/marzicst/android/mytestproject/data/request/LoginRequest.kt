@@ -1,4 +1,4 @@
-package com.marzicst.android.mytestproject.data
+package com.marzicst.android.mytestproject.data.request
 
 import com.google.gson.annotations.SerializedName
 

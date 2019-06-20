@@ -1,8 +1,8 @@
 package com.marzicst.android.mytestproject.ui.login
 
 import com.marzicst.android.mytestproject.api.ApiHelper
-import com.marzicst.android.mytestproject.api.response.TokenResponse
-import com.marzicst.android.mytestproject.data.LoginRequest
+import com.marzicst.android.mytestproject.data.response.TokenResponse
+import com.marzicst.android.mytestproject.data.request.LoginRequest
 import io.reactivex.Single
 import retrofit2.Call
 

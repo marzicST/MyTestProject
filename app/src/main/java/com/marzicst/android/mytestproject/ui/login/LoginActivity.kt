@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import android.view.View
 import com.facebook.*
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
@@ -21,6 +22,7 @@ import com.marzicst.android.mytestproject.R
 import android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
+import android.widget.ProgressBar
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.marzicst.android.mytestproject.MainActivity
@@ -40,7 +42,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     private lateinit var signOut: Button
     private lateinit var facebookLoginButton: LoginButton
     private lateinit var loginButton: Button
-
+    private var progressBar: ProgressBar? = null
     private lateinit var passwordInput: TextInputLayout
     private var emailText: String? = null
     private var passwordText: String? = null
@@ -52,6 +54,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         presenter?.onCreate(LoginModel(), this)
         initViews()
         mAuth = FirebaseAuth.getInstance()
+        progressBar?.visibility = ProgressBar.INVISIBLE
 
         googleSignInButton.setOnClickListener {
 
@@ -94,8 +97,6 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         callbackManager = CallbackManager.Factory.create()
         facebookLoginButton.setReadPermissions("email")
 
-//        facebookLoginButton.setOnClickListener { presenter?.onFacebookSignInButtonClicked() }
-
         facebookLoginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(result: LoginResult) {
                 Toast.makeText(baseContext, "Login Facebook Success", Toast.LENGTH_LONG).show()
@@ -110,7 +111,6 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
                 Toast.makeText(baseContext, "Login Facebook Error", Toast.LENGTH_LONG).show()
             }
         })
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -138,7 +138,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
             ?.addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d("TAG", "signInWithCredential:success")
-//                    updateUI(user)
+
                     openMainActivity()
                 } else {
                     Log.w("TAG", "signInWithCredential:failure", task.exception)
@@ -190,10 +190,20 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         signOut = findViewById(R.id.activity_login_btn_sign_out)
         facebookLoginButton = findViewById(R.id.activity_login_facebook_login_button)
         loginButton = findViewById(R.id.activity_login_btn_login)
+
+        progressBar = findViewById(R.id.progressbar)
     }
 
-    override fun getViewContext(): LoginContract.View {
+    override fun getViewContext(): LoginActivity {
         return this
+    }
+
+    override fun showProgress() {
+        progressBar?.visibility = ProgressBar.VISIBLE
+    }
+
+    override fun hideProgress() {
+        progressBar?.visibility = ProgressBar.INVISIBLE
     }
 
 }
