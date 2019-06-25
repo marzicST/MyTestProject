@@ -22,6 +22,7 @@ interface LoginContract {
         fun hideKeyboard()
         fun validationSuccessful()
         fun openMainActivity()
+        fun openNewsActivity()
         fun getViewContext(): Activity
     }
 

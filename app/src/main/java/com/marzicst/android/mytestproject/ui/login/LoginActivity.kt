@@ -2,8 +2,6 @@ package com.marzicst.android.mytestproject.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TextInputLayout
-import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -23,9 +21,12 @@ import android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.textfield.TextInputLayout
 import com.marzicst.android.mytestproject.MainActivity
+import com.marzicst.android.mytestproject.ui.news.NewsActivity
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
 
@@ -92,7 +93,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
             }
         })
 
-        loginButton.setOnClickListener { presenter?.onButtonLoginClicked(emailText, passwordText) }
+        loginButton.setOnClickListener { presenter?.onButtonLoginClicked("user1@gmail.com", "123456") }
 
         callbackManager = CallbackManager.Factory.create()
         facebookLoginButton.setReadPermissions("email")
@@ -178,6 +179,11 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     override fun openMainActivity() {
         val intent = MainActivity.newIntent(baseContext)
+        startActivity(intent)
+    }
+
+    override fun openNewsActivity() {
+        val intent = NewsActivity.newIntent(baseContext)
         startActivity(intent)
     }
 

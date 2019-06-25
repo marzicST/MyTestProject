@@ -79,7 +79,7 @@ class LoginPresenter : LoginContract.Presenter {
                 return
             }
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email.toString()).matches()) {
             view?.showEmailError("Incorrect email")
             return
         }
@@ -95,7 +95,7 @@ class LoginPresenter : LoginContract.Presenter {
         val disposable = model?.loginRx(body)
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribeOn(Schedulers.io())
-            ?.subscribe({view?.openMainActivity()},{})
+            ?.subscribe({view?.openNewsActivity()},{view?.openMainActivity()})
 
 
         view?.hideProgress()

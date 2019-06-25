@@ -67,4 +67,8 @@ object ApiHelper {
     fun loadNews(body: CursorRequest): Observable<NewsResponse>{
         return apiMotoInterface.browsNews(body)
     }
+
+    fun loadNewsCall(body: CursorRequest): Call<NewsResponse>{
+        return apiMotoInterface.browsNewsCall(body)
+    }
 }

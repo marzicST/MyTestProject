@@ -20,4 +20,7 @@ interface ApiInterface {
 
     @POST("/news/browse/")
     fun browsNews(@Body body: CursorRequest): Observable<NewsResponse>
+
+    @POST("/news/browse/")
+    fun browsNewsCall(@Body body: CursorRequest): Call<NewsResponse>
 }
