@@ -38,7 +38,7 @@ class NewsConverter: JsonDeserializer<News> {
         data = ParseUtils.getIntSafely(edpJson, "is_prime", 0)
         news.prime = data != 0
 
-        val photosJson = ParseUtils.getObjectSafely(parent, "photos")
+        val photosJson = ParseUtils.getObjectSafely(edpJson, "photos")
         val photos: Photos? = context?.deserialize(photosJson, Photos::class.java)
         news.photos = photos
 

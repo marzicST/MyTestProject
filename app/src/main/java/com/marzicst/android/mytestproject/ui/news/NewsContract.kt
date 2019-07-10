@@ -1,6 +1,5 @@
 package com.marzicst.android.mytestproject.ui.news
 
-import com.marzicst.android.mytestproject.data.News
 import com.marzicst.android.mytestproject.data.request.CursorRequest
 import com.marzicst.android.mytestproject.data.response.NewsResponse
 import io.reactivex.Observable
@@ -14,13 +13,14 @@ interface NewsContract {
     }
 
     interface View{
-        fun showNews(it: List<News>)
+        fun showNews(it: NewsResponse)
+        fun addNews(data: NewsResponse)
     }
 
     interface Presenter{
         fun onCreate(model:Model, view: View)
         fun onDestroy()
         fun loadNews()
-
+        fun loadMore()
     }
 }
